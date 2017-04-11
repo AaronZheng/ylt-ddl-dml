@@ -1,6 +1,6 @@
 -----------------------------------------------------
--- Export file for user YLT                        --
--- Created by zhengchenglei on 2017/4/10, 19:36:56 --
+-- Export file for user YLT_P                      --
+-- Created by zhengchenglei on 2017/4/11, 16:40:56 --
 -----------------------------------------------------
 
 spool ylt.log
@@ -24,7 +24,8 @@ create table STOCK_DAY_INFO
   XGRQ                DATE,
   YXBJ                CHAR(1),
   K_PICTURE           VARCHAR2(500),
-  T_PICTURE           VARCHAR2(500)
+  T_PICTURE           VARCHAR2(500),
+  TRADE_TIME          VARCHAR2(20)
 )
 ;
 comment on table STOCK_DAY_INFO
@@ -57,6 +58,8 @@ comment on column STOCK_DAY_INFO.K_PICTURE
   is '日K线图';
 comment on column STOCK_DAY_INFO.T_PICTURE
   is '十分图';
+comment on column STOCK_DAY_INFO.TRADE_TIME
+  is '交易时间';
 
 prompt
 prompt Creating table STOCK_DETAIL_INFO
@@ -147,7 +150,8 @@ create table STOCK_MINUTE_INFO
   SALE_FIVE_NUM    NUMBER(20),
   TRADE_NUM        NUMBER(20),
   TRADE_PRICE      NUMBER(20),
-  TRADE_TIME       VARCHAR2(20)
+  TRADE_TIME       VARCHAR2(20),
+  COLLECT_TIME     DATE
 )
 ;
 comment on column STOCK_MINUTE_INFO.ID
@@ -208,6 +212,9 @@ comment on column STOCK_MINUTE_INFO.TRADE_PRICE
   is '当前时间交易额';
 comment on column STOCK_MINUTE_INFO.TRADE_TIME
   is '交易时间点';
+comment on column STOCK_MINUTE_INFO.COLLECT_TIME
+  is '采集时间';
+create unique index STOCK_MINUTE_INFO_INDEX on STOCK_MINUTE_INFO (STOCK_CODE, TRADE_TIME);
 
 
 spool off
